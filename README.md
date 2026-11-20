@@ -1,5 +1,38 @@
-# Vue 3 + Vite
+# Student Dashboard Management System
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A modular student dashboard prototype built with Vue 3. This project demonstrates a maintainable application structure using reusable components, Pinia state management, and Vue Router.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Features
+
+- Login screen
+- Student dashboard overview
+- My Courses
+- Attendance
+- Assignments
+- Student Profile
+- Settings
+- Modular navigation with Vue Router
+- Shared application state with Pinia
+- Responsive, styled interface
+
+## Tech Stack
+
+- Vue 3
+- Vite
+- Pinia
+- Vue Router
+- JavaScript
+- CSS
+
+## Getting Started
+
+### Prerequisites
+
+Install the Node.js LTS version.
+
+### Installation
+
+Open a terminal in the project folder and run:
+
+```sh
+npm install
