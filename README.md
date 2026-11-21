@@ -1,21 +1,18 @@
 # Student Dashboard Management System
 
-A modular student dashboard prototype built with Vue 3. This project demonstrates a maintainable application structure using reusable components, Pinia state management, and Vue Router.
+A Vue 3 student dashboard prototype with registration, login, logout, and protected dashboard pages. This project was extended for the Week 2 User Authentication Module task.
 
 ## Features
 
-- Login screen
-- Student dashboard overview
-- My Courses
-- Attendance
-- Assignments
-- Student Profile
-- Settings
-- Modular navigation with Vue Router
-- Shared application state with Pinia
-- Responsive, styled interface
+- Student registration with name, email, and password
+- Login using a registered email and password
+- Logout and protected dashboard routes
+- Form validation and helpful error messages
+- Pinia store for authentication and session state
+- Vue Router navigation between login, registration, and dashboard pages
+- Student dashboard sections for courses, attendance, assignments, profile, and settings
 
-## Tech Stack
+## Technology
 
 - Vue 3
 - Vite
@@ -24,15 +21,14 @@ A modular student dashboard prototype built with Vue 3. This project demonstrate
 - JavaScript
 - CSS
 
-## Getting Started
+## Requirements
 
-### Prerequisites
+Install the Node.js LTS version before running the project.
 
-Install the Node.js LTS version.
-
-### Installation
+## Run locally
 
 Open a terminal in the project folder and run:
 
 ```sh
 npm install
+npm run dev
