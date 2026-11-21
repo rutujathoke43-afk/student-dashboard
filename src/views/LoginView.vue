@@ -3,13 +3,15 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
-const studentName = ref('')
+const email = ref('')
+const password = ref('')
 const router = useRouter()
 const auth = useAuthStore()
 
 function login() {
-  auth.login(studentName.value.trim() || 'Demo Student')
-  router.push('/dashboard')
+  if (auth.login(email.value, password.value)) {
+    router.push('/dashboard')
+  }
 }
 </script>
 
@@ -17,7 +19,7 @@ function login() {
   <main class="login-page">
     <section class="login-card">
       <div class="login-art">
-        <div class="login-brand">
+        <div class="brand">
           <span class="brand-mark">C</span>
           <span>CampusHub</span>
         </div>
@@ -28,7 +30,6 @@ function login() {
           <p class="art-copy">
             Keep your courses, attendance and assignments together in one place.
           </p>
-
           <div class="art-stat">
             <span class="stat-icon">✦</span>
             <div>
@@ -37,9 +38,8 @@ function login() {
             </div>
           </div>
         </div>
-
-        <div class="art-decoration decoration-one"></div>
-        <div class="art-decoration decoration-two"></div>
+        <div class="decoration decoration-one"></div>
+        <div class="decoration decoration-two"></div>
       </div>
 
       <div class="login-form-panel">
@@ -51,27 +51,41 @@ function login() {
         <div class="form-heading">
           <p class="form-eyebrow">STUDENT PORTAL</p>
           <h2>Welcome back</h2>
-          <p>Enter your name to continue to your dashboard.</p>
+          <p>Log in to continue to your dashboard.</p>
         </div>
 
         <form @submit.prevent="login">
-          <label for="studentName">Your name</label>
+          <label for="email">Email address</label>
           <input
-            id="studentName"
-            v-model="studentName"
-            type="text"
-            placeholder="e.g. Asha"
-            autocomplete="name"
+            id="email"
+            v-model="email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
           />
 
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+
+          <p v-if="auth.error" class="error-message">{{ auth.error }}</p>
+
           <button type="submit">
-            Continue to dashboard
+            Log in
             <span aria-hidden="true">→</span>
           </button>
         </form>
 
-        <p class="demo-note">
-          Demo sign-in for this project. No password or account is required.
+        <p class="switch-link">
+          New to CampusHub?
+          <RouterLink to="/register">Create an account</RouterLink>
         </p>
       </div>
     </section>
@@ -99,7 +113,7 @@ function login() {
   overflow: hidden;
   border: 1px solid #e6e9f3;
   border-radius: 28px;
-  background: #fff;
+  background: white;
   box-shadow: 0 28px 80px rgb(40 49 100 / 15%);
 }
 
@@ -114,14 +128,13 @@ function login() {
   background: linear-gradient(145deg, #3730a3, #5b50d8 58%, #8176ed);
 }
 
-.login-brand,
+.brand,
 .mobile-brand {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 19px;
   font-weight: 800;
-  letter-spacing: -0.4px;
 }
 
 .brand-mark {
@@ -160,7 +173,6 @@ function login() {
   margin: 0 0 16px;
   color: white;
   font-size: clamp(36px, 5vw, 52px);
-  font-weight: 800;
   line-height: 1.08;
   letter-spacing: -1.8px;
 }
@@ -183,7 +195,6 @@ function login() {
   border: 1px solid rgb(255 255 255 / 22%);
   border-radius: 15px;
   background: rgb(255 255 255 / 12%);
-  backdrop-filter: blur(8px);
 }
 
 .stat-icon {
@@ -212,7 +223,7 @@ function login() {
   font-size: 11px;
 }
 
-.art-decoration {
+.decoration {
   position: absolute;
   border: 1px solid rgb(255 255 255 / 13%);
   border-radius: 50%;
@@ -285,6 +296,7 @@ form label {
 }
 
 form input {
+  box-sizing: border-box;
   width: 100%;
   padding: 14px 15px;
   border: 1px solid #dfe3ee;
@@ -293,17 +305,12 @@ form input {
   color: #202744;
   background: #fbfcff;
   font-size: 15px;
-  transition: 160ms ease;
 }
 
 form input:focus {
   border-color: #7569e7;
   background: white;
   box-shadow: 0 0 0 4px rgb(117 105 231 / 12%);
-}
-
-form input::placeholder {
-  color: #a4aabd;
 }
 
 form button {
@@ -320,23 +327,29 @@ form button {
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
-  transition: 160ms ease;
-}
-
-form button:hover {
-  box-shadow: 0 12px 24px rgb(81 70 216 / 30%);
-  transform: translateY(-1px);
 }
 
 form button span {
   font-size: 20px;
 }
 
-.demo-note {
+.error-message {
+  margin: 4px 0;
+  color: #c62828;
+  font-size: 13px;
+}
+
+.switch-link {
   margin: 22px 0 0;
-  color: #9aa1b2;
-  font-size: 11px;
-  line-height: 1.6;
+  color: #858da2;
+  font-size: 13px;
+  text-align: center;
+}
+
+.switch-link a {
+  color: #5146d8;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 @media (max-width: 720px) {

@@ -3,10 +3,17 @@ import { useAuthStore } from '../stores/auth'
 
 const routes = [
     { path: '/', redirect: '/dashboard' },
+
     {
         path: '/login',
         name: 'login',
         component: () => import('../views/LoginView.vue'),
+        meta: { public: true }
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('../views/RegisterView.vue'),
         meta: { public: true }
     },
     {
@@ -58,7 +65,9 @@ const routes = [
             title: 'Settings',
             description: 'Manage your dashboard preferences.'
         }
-    }
+    },
+
+    { path: '/:pathMatch(.*)*', redirect: '/dashboard' }
 ]
 
 const router = createRouter({
