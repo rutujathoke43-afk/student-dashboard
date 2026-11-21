@@ -5,7 +5,6 @@ import { useAuthStore } from '../stores/auth'
 
 const dashboard = useDashboardStore()
 const auth = useAuthStore()
-const progressValues = [72, 58, 86]
 </script>
 
 <template>
@@ -22,17 +21,21 @@ const progressValues = [72, 58, 86]
     <section class="stats-grid" aria-label="Study summary">
       <SummaryCard
         title="📚 My Courses"
-        :value="dashboard.courseCount + ''"
+        :value="String(dashboard.courseCount)"
         description="Active courses this term"
       />
       <SummaryCard
         title="📊 Attendance"
-        :value="dashboard.attendance + '%'"
-        description="Above the 75% target"
+        :value="`${dashboard.attendance}%`"
+        :description="
+          dashboard.attendance >= 75
+            ? 'Above the 75% target'
+            : 'Below the 75% target'
+        "
       />
       <SummaryCard
         title="📝 Assignments"
-        :value="dashboard.pendingAssignmentCount + ''"
+        :value="String(dashboard.pendingAssignmentCount)"
         description="Tasks waiting for you"
       />
     </section>
@@ -49,7 +52,7 @@ const progressValues = [72, 58, 86]
 
         <article
           v-for="(course, index) in dashboard.courses"
-          :key="course"
+          :key="course.id"
           class="course-row"
         >
           <div class="course-icon" :class="'tone-' + (index % 3)">
@@ -58,13 +61,13 @@ const progressValues = [72, 58, 86]
 
           <div class="course-info">
             <div class="course-title">
-              <strong>{{ course }}</strong>
-              <span>{{ progressValues[index % 3] }}%</span>
+              <strong>{{ course.name }}</strong>
+              <span>{{ course.progress }}%</span>
             </div>
             <div class="progress-track">
               <div
                 class="progress-fill"
-                :style="{ width: progressValues[index % 3] + '%' }"
+                :style="{ width: `${course.progress}%` }"
               ></div>
             </div>
             <small>Course progress</small>
@@ -78,18 +81,24 @@ const progressValues = [72, 58, 86]
             <p class="eyebrow">THIS MONTH</p>
             <h2>Attendance</h2>
           </div>
-          <span class="status-pill">On track</span>
+          <span class="status-pill">{{ dashboard.attendanceStatus }}</span>
         </div>
 
         <div class="attendance-score">
           {{ dashboard.attendance }}<span>%</span>
         </div>
-        <p class="muted">Great work! Keep attending classes to stay on track.</p>
+        <p class="muted">
+          {{
+            dashboard.attendance >= 75
+              ? 'Great work! Keep attending classes to stay on track.'
+              : 'Attendance is below the 75% target. Attend upcoming classes to improve it.'
+          }}
+        </p>
 
         <div class="progress-track attendance-track">
           <div
             class="progress-fill attendance-fill"
-            :style="{ width: dashboard.attendance + '%' }"
+            :style="{ width: `${dashboard.attendance}%` }"
           ></div>
         </div>
         <div class="attendance-legend">
@@ -107,16 +116,16 @@ const progressValues = [72, 58, 86]
         </div>
 
         <article
-          v-for="(item, index) in dashboard.assignments"
+          v-for="item in dashboard.assignments"
           :key="item.id"
           class="assignment-row"
         >
-          <div class="assignment-icon" :class="index % 2 ? 'lavender' : 'mint'">
-            {{ index % 2 ? '✎' : '✓' }}
+          <div class="assignment-icon" :class="item.complete ? 'mint' : 'lavender'">
+            {{ item.complete ? '✓' : '✎' }}
           </div>
           <div class="assignment-info">
             <strong>{{ item.title }}</strong>
-            <small>{{ index % 2 ? 'Due Friday' : 'Due tomorrow' }}</small>
+            <small>{{ item.dueLabel }}</small>
           </div>
           <span class="assignment-status">
             {{ item.complete ? 'Done' : 'Pending' }}
