@@ -32,3 +32,62 @@ Open a terminal in the project folder and run:
 ```sh
 npm install
 npm run dev
+# Week 5: Unit Testing & Quality Assurance
+
+## 1. Objective
+
+The objective of Week 5 was to implement unit testing for the Vue.js Student Dashboard Management System using Vitest and Vue Test Utils. The purpose was to verify individual components and application functionalities and improve software quality.
+
+## 2. Testing Tools Used
+
+- Vitest
+- Vue Test Utils
+- jsdom
+- Vue 3
+- Pinia
+
+## 3. Test Cases Implemented
+
+### A. Authentication Store Tests
+
+1. Verify successful registration with valid user details.
+2. Reject registration with an invalid email address.
+3. Reject passwords shorter than eight characters.
+4. Verify login and logout functionality.
+5. Reject login with an incorrect password.
+
+### B. SummaryCard Component Tests
+
+1. Verify that the component displays the correct title, value, and description.
+2. Verify that the component contains the correct section and card class.
+
+## 4. Test Results
+
+- Total Test Cases: 7
+- Passed Tests: 7
+- Failed Tests: 0
+- Testing Status: Successful
+
+All seven unit tests passed successfully.
+
+## 5. How to Run Tests
+
+First, install the project dependencies:
+
+```bash
+npm install
+```
+
+To execute all unit tests once, run:
+
+```bash
+npm test -- --run
+```
+
+## 6. Quality Assurance
+
+Unit tests were created to check normal and invalid input scenarios. Authentication tests verified registration, login, logout, and validation behavior. SummaryCard tests verified the correct display of component data.
+
+## 7. Conclusion
+
+Week 5 successfully introduced unit testing into the Student Dashboard Management System using Vitest and Vue Test Utils. A total of seven test cases were implemented and all seven passed successfully. This task improved understanding of software testing, error detection, code reliability, and quality assurance practices.
