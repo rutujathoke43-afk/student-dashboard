@@ -91,3 +91,48 @@ Unit tests were created to check normal and invalid input scenarios. Authenticat
 ## 7. Conclusion
 
 Week 5 successfully introduced unit testing into the Student Dashboard Management System using Vitest and Vue Test Utils. A total of seven test cases were implemented and all seven passed successfully. This task improved understanding of software testing, error detection, code reliability, and quality assurance practices.
+
+## Week 6: Deployment, Documentation & Code Review
+
+### Live Deployment
+
+The Student Dashboard Management System has been successfully deployed using Vercel.
+
+**Live Website:** <https://student-dashboard-seven-phi.vercel.app>
+
+### Deployment Configuration
+
+- Hosting Platform: Vercel
+- Framework: Vue 3 with Vite
+- Build Command: npm run build
+- Output Directory: dist
+- Deployment Source: GitHub Repository
+
+### Continuous Integration
+
+GitHub Actions has been configured to:
+
+- Install project dependencies.
+- Run unit tests using Vitest.
+- Build the production application.
+- Verify changes pushed to the main branch.
+
+### Production Build
+
+The production build was successfully generated using:
+
+`npm run build`
+
+The build completed successfully in 553ms.
+
+### Deployment Testing
+
+The deployed website was opened successfully. The Student Dashboard interface was visible on the live website.
+
+### Maintenance
+
+The application can be updated by pushing new changes to the connected GitHub repository. Vercel can automatically deploy updates from the configured branch.
+
+### Conclusion
+
+The Student Dashboard Management System was successfully prepared for production deployment using Vercel. Deployment configuration, automated testing, and documentation were added to improve project maintainability and reliability.
